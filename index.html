@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VulnScanner — Network Vulnerability Scanner</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0D1B2A; color: #fff; }
+
+    /* NAV */
+    nav {
+      background: #0F3460;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #E94560;
+      position: sticky; top: 0; z-index: 100;
+    }
+    nav h1 { font-size: 24px; }
+    nav h1 span { color: #E94560; }
+    nav a {
+      color: #AABBCC; text-decoration: none;
+      margin-left: 24px; font-size: 14px;
+    }
+    nav a:hover { color: #E94560; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 100px 40px 80px;
+      background: linear-gradient(180deg, #0F3460 0%, #0D1B2A 100%);
+    }
+    .hero .tag {
+      background: #E94560;
+      color: white;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 64px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #E94560; }
+    .hero p {
+      font-size: 20px;
+      color: #AABBCC;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .btn-download {
+      background: linear-gradient(135deg, #E94560, #c73652);
+      color: white;
+      padding: 16px 48px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(233,69,96,0.4);
+      transition: transform 0.3s;
+    }
+    .btn-download:hover { transform: scale(1.05); }
+    .hero-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #7799BB;
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 50px 40px;
+      background: #0F3460;
+    }
+    .stat { text-align: center; }
+    .stat .number { font-size: 42px; font-weight: bold; color: #E94560; }
+    .stat .label { font-size: 14px; color: #AABBCC; margin-top: 6px; }
+
+    /* FEATURES */
+    .features { padding: 80px 40px; }
+    .features h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+    .features h2 span { color: #E94560; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: #0F3460;
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      border-top: 4px solid #E94560;
+      transition: transform 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-6px); }
+    .feature-card .icon { font-size: 48px; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 18px; margin-bottom: 10px; }
+    .feature-card p { font-size: 13px; color: #AABBCC; line-height: 1.6; }
+
+    /* HOW IT WORKS */
+    .how { background: #0F3460; padding: 80px 40px; }
+    .how h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+    .how h2 span { color: #E94560; }
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 1000px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .step {
+      text-align: center;
+      flex: 1;
+      min-width: 180px;
+      padding: 20px;
+      position: relative;
+    }
+    .step .num {
+      width: 56px; height: 56px;
+      background: #E94560;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: bold;
+      margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 15px; margin-bottom: 8px; }
+    .step p { font-size: 12px; color: #AABBCC; line-height: 1.5; }
+
+    /* INSTALL */
+    .install { padding: 80px 40px; }
+    .install h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+    .install h2 span { color: #E94560; }
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .install-card {
+      background: #0F3460;
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .install-card .step-num {
+      background: #E94560;
+      color: white;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .install-card h3 { font-size: 16px; margin-bottom: 10px; }
+    .install-card p { font-size: 13px; color: #AABBCC; margin-bottom: 10px; }
+    .code-block {
+      background: #0D1B2A;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #82AAFF;
+      margin-top: 8px;
+    }
+    .install-link {
+      color: #E94560;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .install-link:hover { text-decoration: underline; }
+
+    /* SEVERITY */
+    .severity { background: #0F3460; padding: 80px 40px; }
+    .severity h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+    .severity h2 span { color: #E94560; }
+    .severity-grid {
+      display: flex;
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .sev-card {
+      border-radius: 12px;
+      padding: 20px 28px;
+      text-align: center;
+      min-width: 150px;
+    }
+    .sev-card .score { font-size: 32px; font-weight: bold; }
+    .sev-card .name { font-size: 14px; font-weight: bold; margin: 6px 0; }
+    .sev-card .desc { font-size: 11px; color: rgba(255,255,255,0.8); }
+
+    /* FOOTER */
+    footer {
+      background: #0a1628;
+      padding: 40px;
+      text-align: center;
+      border-top: 2px solid #0F3460;
+    }
+    footer p { color: #7799BB; font-size: 13px; line-height: 1.8; }
+    footer span { color: #E94560; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <h1>Vuln<span>Scanner</span></h1>
+  <div>
+    <a href="#features">Features</a>
+    <a href="#install">Installation</a>
+    <a href="#download">Download</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">🎓 Kardan University Final Project</div>
+  <h1>Vuln<span>Scanner</span></h1>
+  <p>Free and open-source network vulnerability scanner with AI risk scoring and AES-256 encrypted reports.</p>
+  <a href="#download" class="btn-download">⬇️ Download VulnScanner</a>
+  <p class="hero-note">Free • Open Source • Python • Works on Windows & Linux</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="number">3</div>
+    <div class="label">Technical Areas</div>
+  </div>
+  <div class="stat">
+    <div class="number">AES-256</div>
+    <div class="label">Encryption Standard</div>
+  </div>
+  <div class="stat">
+    <div class="number">17+</div>
+    <div class="label">High-Risk Ports Detected</div>
+  </div>
+  <div class="stat">
+    <div class="number">100%</div>
+    <div class="label">Free & Open Source</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features" id="features">
+  <h2>Key <span>Features</span></h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon">🌐</div>
+      <h3>Network Scanning</h3>
+      <p>Automatically discovers all active hosts and open ports on your local network using Nmap with service version detection.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🤖</div>
+      <h3>AI Risk Scoring</h3>
+      <p>Intelligently classifies each vulnerability as CRITICAL, HIGH, MEDIUM, or LOW based on CVE severity ratings and OWASP guidelines.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔐</div>
+      <h3>AES-256 Encryption</h3>
+      <p>Protects all generated reports with military-grade AES-256 encryption and RSA-2048 key exchange — the same standard used by governments.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📊</div>
+      <h3>Web Dashboard</h3>
+      <p>Beautiful real-time dashboard in your browser showing color-coded vulnerability results with severity badges.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📧</div>
+      <h3>Email Alerts</h3>
+      <p>Automatically sends email notifications when CRITICAL or HIGH vulnerabilities are detected on your network.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔥</div>
+      <h3>Firewall Suggestions</h3>
+      <p>Generates ready-to-run Windows Firewall commands to immediately block dangerous open ports with one click.</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how">
+  <h2>How It <span>Works</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>Download & Run</h3>
+      <p>Download VulnScanner and run with a single command</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>Auto Scan</h3>
+      <p>Automatically scans your entire local network</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>AI Analysis</h3>
+      <p>AI scores each vulnerability by severity level</p>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <h3>View Dashboard</h3>
+      <p>See results in your browser with color-coded severity</p>
+    </div>
+    <div class="step">
+      <div class="num">5</div>
+      <h3>Encrypted Report</h3>
+      <p>PDF report encrypted with AES-256 saved automatically</p>
+    </div>
+  </div>
+</div>
+
+<!-- INSTALLATION -->
+<div class="install" id="install">
+  <h2>Installation <span>Guide</span></h2>
+  <div class="install-grid">
+    <div class="install-card">
+      <div class="step-num">1</div>
+      <h3>Install Python 3.x</h3>
+      <p>Download and install Python from the official website.</p>
+      <a href="https://python.org/downloads" class="install-link">→ python.org/downloads</a>
+    </div>
+    <div class="install-card">
+      <div class="step-num">2</div>
+      <h3>Install Nmap 7.99</h3>
+      <p>Download Nmap and enable WinPcap API-compatible mode during installation.</p>
+      <a href="https://nmap.org/download.html" class="install-link">→ nmap.org/download.html</a>
+    </div>
+    <div class="install-card">
+      <div class="step-num">3</div>
+      <h3>Install Requirements</h3>
+      <p>Open terminal in the VulnScanner folder and run:</p>
+      <div class="code-block">pip install python-nmap pycryptodome reportlab flask</div>
+    </div>
+    <div class="install-card">
+      <div class="step-num">4</div>
+      <h3>Run VulnScanner</h3>
+      <p>Start the dashboard with a single command:</p>
+      <div class="code-block">python dashboard/app.py</div>
+      <p style="margin-top:8px">Then open your browser at <strong>localhost:5000</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- SEVERITY -->
+<div class="severity">
+  <h2>Risk <span>Severity Levels</span></h2>
+  <div class="severity-grid">
+    <div class="sev-card" style="background:#DC2626">
+      <div class="score">9-10</div>
+      <div class="name">CRITICAL</div>
+      <div class="desc">Immediate action required</div>
+    </div>
+    <div class="sev-card" style="background:#EA580C">
+      <div class="score">7-8</div>
+      <div class="name">HIGH</div>
+      <div class="desc">Fix within 48 hours</div>
+    </div>
+    <div class="sev-card" style="background:#CA8A04">
+      <div class="score">5-6</div>
+      <div class="name">MEDIUM</div>
+      <div class="desc">Fix within 30 days</div>
+    </div>
+    <div class="sev-card" style="background:#16A34A">
+      <div class="score">3-4</div>
+      <div class="name">LOW</div>
+      <div class="desc">Monitor and fix</div>
+    </div>
+    <div class="sev-card" style="background:#2563EB">
+      <div class="score">1-2</div>
+      <div class="name">INFO</div>
+      <div class="desc">No action needed</div>
+    </div>
+  </div>
+</div>
+
+<!-- DOWNLOAD -->
+<div class="install" id="download">
+  <h2>Download <span>VulnScanner</span></h2>
+  <div style="text-align:center; margin-top: 20px;">
+    <a href="https://github.com/YOUR_USERNAME/vulnscanner/archive/refs/heads/main.zip"
+       class="btn-download">⬇️ Download ZIP</a>
+    <p style="margin-top:16px; color:#7799BB; font-size:13px">
+      Or clone with Git:
+    </p>
+    <div class="code-block" style="max-width:500px; margin: 12px auto;">
+      git clone https://github.com/YOUR_USERNAME/vulnscanner.git
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <span>VulnScanner</span> — Network Vulnerability Scanner with AI Risk Scoring and Encrypted Reports<br>
+    Kardan University | Faculty of Computer Science | Network Security and Cryptography | 2026<br>
+    Developed by: Member 1 • Member 2 • Member 3
+  </p>
+</footer>
+
+</body>
+</html>
